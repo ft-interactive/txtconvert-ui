@@ -42,7 +42,7 @@
                   return val.join('\t');
                 }
               }).join('\n');
-              const processed = txtcnvrt.cleanInput(raw, comments);
+              const processed = txtcnvrt.cleanInput(raw, processedComments);
 
               if (document.getElementById('show-dialog').checked) {
                 const saveDirPath = dialog.showSaveDialog({

@@ -1,7 +1,7 @@
 {
   "name": "txtconvert-ui",
   "productName": "txt-convert",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Electron app for processing FT TSV files",
   "license": "MIT",
   "repository": "ft-interactive/txtconvert-ui",
@@ -28,7 +28,7 @@
     "dropzone": "^4.3.0",
     "electron-debug": "^1.0.0",
     "papaparse": "^4.1.2",
-    "text-converter": "github:ft-interactive/txtconverter#1.0.1"
+    "text-converter": "github:ft-interactive/txtconverter#1.0.3"
   },
   "devDependencies": {
     "devtron": "^1.1.0",
