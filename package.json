@@ -38,6 +38,7 @@
   },
   "xo": {
     "esnext": true,
+    "space": true,
     "envs": [
       "node",
       "browser"
