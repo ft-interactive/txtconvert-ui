@@ -11,6 +11,8 @@ The first field in the header row is often omitted; this gets re-added as "date"
 
 The underlying processing lib is [ft-interactive/txtconverter][1].
 
+Icon from the [Dr. Slash Flat OSX Icon Pack](https://drslash.com/flat-osx-pack/).
+
 
 ## Dev
 

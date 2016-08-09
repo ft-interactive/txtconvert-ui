@@ -1,19 +1,19 @@
 {
-  "name": "txtconvrtui",
-  "productName": "Txtconvrtui",
-  "version": "0.0.0",
-  "description": "My amazing app",
+  "name": "txtconvert-ui",
+  "productName": "txt-convert",
+  "version": "1.0.0",
+  "description": "Electron app for processing FT TSV files",
   "license": "MIT",
-  "repository": "ft-interactive/txtconvrtui",
+  "repository": "ft-interactive/txtconvert-ui",
   "author": {
     "name": "Ændrew Rininsland",
     "email": "andrew.rininsland@ft.com",
-    "url": "ig.ft.com"
+    "url": "ft.com"
   },
   "scripts": {
     "test": "xo",
     "start": "electron .",
-    "build": "electron-packager . --out=dist --app-version=$npm_package_version --prune --asar --overwrite --all"
+    "build": "electron-packager . --out=dist --icon ./icon.icns --app-version=$npm_package_version --prune --asar --overwrite --all"
   },
   "files": [
     "index.js",
