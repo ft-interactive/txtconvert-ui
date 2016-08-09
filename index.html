@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Text Spreadsheet Converter</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="node_modules/dropzone/dist/dropzone.css">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Text Spreadsheet Converter</h1>
+      </header>
+      <section class="main">
+        <form action="#" class="dropzone" id="fileDrop"></form>
+      </section>
+      <footer>
+        <label for="show-dialog">Show "Save File..." dialog</label>
+        <input type="checkbox" id="show-dialog" checked />
+      </footer>
+      <script type="text/javascript">
+      const Dropzone = require('dropzone');
+      const txtcnvrt = require('text-converter/lib');
+      const read = require('fs').readFileSync;
+      const write = require('fs').writeFileSync;
+      const papa = require('papaparse');
+      const { dialog } = require('electron').remote;
+      const basename = require('path').basename;
+
+      const outputConf = {
+        quotes: true
+      };
+
+      Dropzone.options.fileDrop = {
+        init: function() {
+          this.on("processing", function(file) {
+            try {
+              const raw = read(file.path, {encoding: 'utf-8'});
+              const comments = txtcnvrt.extractComments(raw).map(val => {
+                if (Array.isArray(val) && val.length === 2) {
+                  return val.join('\t');
+                }
+              }).join('\n');
+              const processed = txtcnvrt.cleanInput(raw, comments);
+
+              if (document.getElementById('show-dialog').checked) {
+                const saveDirPath = dialog.showSaveDialog({
+                  defaultPath: file.path.replace(/\.txt$/, '.csv')
+                });
+
+                // Write main CSV file
+                write(
+                  saveDirPath,
+                  papa.unparse(processed, outputConf),
+                  { encoding: 'utf-8' }
+                );
+
+                // Write metadata
+                write(
+                  saveDirPath.replace('.csv', '.metadata.txt'),
+                  comments,
+                  { encoding: 'utf-8' }
+                );
+              } else {
+                // Write CSV
+                write(
+                  file.path.replace(/\.txt$/, '.csv'),
+                  papa.unparse(processed, outputConf),
+                  { encoding: 'utf-8' }
+                );
+
+                // Write metadata
+                write(
+                  file.path.replace('.csv', '.metadata.txt'),
+                  comments,
+                  { encoding: 'utf-8' }
+                );
+                alert('Converted saved as: ' + file.path.replace(/\.txt$/, '.csv'));
+              }
+            } catch (e) {
+              alert(e);
+            }
+          });
+        }
+      };
+      </script>
+    </div>
+  </body>
+</html>
