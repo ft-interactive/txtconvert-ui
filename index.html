@@ -35,7 +35,7 @@
         init: function() {
           this.on("processing", function(file) {
             try {
-              const raw = read(file.path, {encoding: 'utf-8'});
+              const raw = read(file.path, {encoding: 'ucs2'});
               const processedComments = txtcnvrt.extractComments(raw);
               const comments = !processedComments ? '' : processedComments.map(val => {
                 if (Array.isArray(val) && val.length === 2) {
@@ -53,28 +53,28 @@
                 write(
                   saveDirPath,
                   papa.unparse(processed, outputConf),
-                  { encoding: 'utf-8' }
+                  { encoding: 'ucs2' }
                 );
 
                 // Write metadata
                 write(
                   saveDirPath.replace('.csv', '.metadata.txt'),
                   comments,
-                  { encoding: 'utf-8' }
+                  { encoding: 'utf8' }
                 );
               } else {
                 // Write CSV
                 write(
                   file.path.replace(/\.txt$/, '.csv'),
                   papa.unparse(processed, outputConf),
-                  { encoding: 'utf-8' }
+                  { encoding: 'ucs2' }
                 );
 
                 // Write metadata
                 write(
                   file.path.replace('.csv', '.metadata.txt'),
                   comments,
-                  { encoding: 'utf-8' }
+                  { encoding: 'ucs2' }
                 );
                 alert('Converted saved as: ' + file.path.replace(/\.txt$/, '.csv'));
               }
